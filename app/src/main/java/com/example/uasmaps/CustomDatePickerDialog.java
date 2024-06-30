@@ -1,4 +1,3 @@
-// ini untuk tampil data activity
 package com.example.uasmaps;
 
 import android.app.DatePickerDialog;
@@ -30,7 +29,10 @@ public class CustomDatePickerDialog extends DatePickerDialog {
             if (onInvalidDateSelectedListener != null) {
                 onInvalidDateSelectedListener.onInvalidDateSelected(dayOfWeek);
             }
-            updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            // Check if the date is different before calling updateDate to avoid infinite loop
+            if (year != calendar.get(Calendar.YEAR) || month != calendar.get(Calendar.MONTH) || dayOfMonth != calendar.get(Calendar.DAY_OF_MONTH)) {
+                updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            }
         } else {
             super.onDateChanged(view, year, month, dayOfMonth);
         }
